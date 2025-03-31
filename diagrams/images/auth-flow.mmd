@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant Dev as Developer
+    participant VSCode as VS Code Extension
+    participant IdCenter as AWS Identity Center
+    participant APIGW as API Gateway (Private)
+    participant Lambda as Lambda Function
+    participant STS as AWS STS
+    participant Bedrock as AWS Bedrock
+    participant CloudWatch as CloudWatch Logs
+
+    Dev->>IdCenter: 1. Authenticate with corporate credentials
+    IdCenter->>VSCode: 2. Return temporary AWS credentials
+    VSCode->>APIGW: 3. Send signed API request with prompt
+    Note over APIGW: 4. Authenticate request<br/>and validate schema
+    APIGW->>Lambda: 5. Forward request via proxy integration
+    Lambda->>CloudWatch: 6. Log initial request metadata
+    Lambda->>STS: 7. AssumeRole for Bedrock access
+    STS->>Lambda: 8. Return temporary Bedrock credentials
+    Lambda->>Bedrock: 9. Invoke model with formatted prompt
+    Bedrock->>Lambda: 10. Return model response
+    Lambda->>CloudWatch: 11. Log detailed audit information
+    Lambda->>APIGW: 12. Return formatted response
+    APIGW->>VSCode: 13. Forward response
+    VSCode->>Dev: 14. Display results in editor

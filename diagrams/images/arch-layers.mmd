@@ -1,0 +1,106 @@
+flowchart TD
+    subgraph "Corporate Network"
+        Developer["Developer
+Workstation"]
+        VSCode["VS Code + Extension"]
+    end
+    
+    subgraph "AWS Environment"
+        subgraph "Client Layer"
+            VSCodeExt["VS Code Extension
+(AWS SDK)"]
+        end
+        
+        subgraph "Authentication Layer"
+            IdCenter["AWS Identity Center
+(SSO Authentication)"]
+            IAMRoles["IAM Roles
+(Permissions)"]
+            SCPs["Service Control
+Policies"]
+        end
+        
+        subgraph "Access Layer"
+            APIGateway["Private API Gateway
+(IAM Auth + Validation)"]
+        end
+        
+        subgraph "Orchestration Layer"
+            Lambda["Lambda Function
+(Proxy + Logic)"]
+        end
+        
+        subgraph "AI Service Layer"
+            Bedrock["AWS Bedrock
+(Foundation Models)"]
+        end
+        
+        subgraph "Networking Layer"
+            VPC["Virtual Private Cloud"]
+            PrivateSubnets["Private Subnets"]
+            SecurityGroups["Security Groups"]
+            VPCEndpoints["VPC Endpoints
+(PrivateLink)"]
+        end
+        
+        subgraph "Governance Layer"
+            CloudTrail["CloudTrail
+(API Auditing)"]
+            CloudWatch["CloudWatch
+(Logs + Metrics)"]
+            Reporting["Custom Reporting
+(Usage + Compliance)"]
+        end
+    end
+    
+    Developer --> VSCode
+    VSCode --> VSCodeExt
+    
+    VSCodeExt -->|"1. Authenticate"| IdCenter
+    IdCenter -->|"2. Map to IAM Role"| IAMRoles
+    IAMRoles -->|"3. Temporary
+Credentials"| VSCodeExt
+    
+    VSCodeExt -->|"4. Signed
+Request"| APIGateway
+    APIGateway -->|"5. Proxy
+Request"| Lambda
+    
+    Lambda -->|"6. Assume Role
++ Call Bedrock"| Bedrock
+    Bedrock -->|"7. Response"| Lambda
+    Lambda -->|"8. Formatted
+Response"| APIGateway
+    APIGateway -->|"9. Return
+Response"| VSCodeExt
+    
+    Lambda -.->|"Run in"| PrivateSubnets
+    PrivateSubnets -.->|"Part of"| VPC
+    PrivateSubnets -.->|"Protected by"| SecurityGroups
+    VPCEndpoints -.->|"Secure access to
+AWS Services"| VPC
+    
+    Lambda -->|"Log"| CloudWatch
+    APIGateway -->|"Log API Calls"| CloudTrail
+    CloudWatch -->|"Feed"| Reporting
+    
+    SCPs -.->|"Guardrails"| IAMRoles
+    SCPs -.->|"Restrict"| Bedrock
+    
+    classDef corpNet fill:#e4f7fb,stroke:#333,stroke-width:1px;
+    classDef clientLayer fill:#f9d5e5,stroke:#333,stroke-width:1px;
+    classDef authLayer fill:#eeeeee,stroke:#333,stroke-width:1px;
+    classDef accessLayer fill:#dddddd,stroke:#333,stroke-width:1px;
+    classDef orchestrationLayer fill:#d3b5e5,stroke:#333,stroke-width:1px;
+    classDef aiLayer fill:#b5e5d3,stroke:#333,stroke-width:1px;
+    classDef networkLayer fill:#d0e8f2,stroke:#333,stroke-width:1px;
+    classDef govLayer fill:#f2e8d0,stroke:#333,stroke-width:1px;
+    
+    class Developer,VSCode corpNet;
+    class VSCodeExt clientLayer;
+    class IdCenter,IAMRoles,SCPs authLayer;
+    class APIGateway accessLayer;
+    class Lambda orchestrationLayer;
+    class Bedrock aiLayer;
+    class VPC,PrivateSubnets,SecurityGroups,VPCEndpoints networkLayer;
+    class CloudTrail,CloudWatch,Reporting govLayer;

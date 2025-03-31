@@ -1,0 +1,60 @@
+flowchart TD
+    subgraph "Corporate Identity Environment"
+        CorpIdP["Corporate Identity Provider
+(Azure AD/Okta)"]
+        CorpGroups["Corporate Security Groups"]
+        Users["Corporate Users"]
+    end
+    
+    subgraph "AWS Identity Center"
+        IdCenter["AWS Identity Center
+(SSO Service)"]
+        IdCenterDir["Identity Center Directory"]
+        IdCenterGroups["Identity Center Groups"]
+    end
+    
+    subgraph "Permission Configuration"
+        PermSets["Permission Sets"]
+        PS_Basic["LLMAccessBasicPS"]
+        PS_Advanced["LLMAccessAdvancedPS"]
+    end
+    
+    subgraph "AWS Account: Corporate Environment"
+        IAM_Basic["Developer-LLM-Access-Role-Basic"]
+        IAM_Advanced["Developer-LLM-Access-Role-Advanced"]
+        
+        APIGW_Policy["API Gateway
+Resource Policy"]
+        SCP_Bedrock["Bedrock
+Service Control Policy"]
+    end
+    
+    Users -->|"Belong to"| CorpGroups
+    CorpIdP -->|"Contains"| CorpGroups
+    CorpIdP -->|"1. Identity
+Federation"| IdCenter
+    IdCenter -->|"2. Create/Update"| IdCenterDir
+    CorpGroups -->|"3. Sync to"| IdCenterGroups
+    
+    IdCenterGroups -->|"4. Assigned to"| PermSets
+    PermSets -->|"Contains"| PS_Basic
+    PermSets -->|"Contains"| PS_Advanced
+    
+    PS_Basic -->|"5. Maps to"| IAM_Basic
+    PS_Advanced -->|"5. Maps to"| IAM_Advanced
+    
+    IAM_Basic -->|"6. Grants access to"| APIGW_Policy
+    IAM_Advanced -->|"6. Grants access to"| APIGW_Policy
+    
+    SCP_Bedrock -->|"7. Restricts"| IAM_Basic
+    SCP_Bedrock -->|"7. Restricts"| IAM_Advanced
+    
+    classDef corpEnv fill:#e4f7fb,stroke:#333,stroke-width:1px;
+    classDef idCenter fill:#f9d5e5,stroke:#333,stroke-width:1px;
+    classDef permSets fill:#d3b5e5,stroke:#333,stroke-width:1px;
+    classDef awsAccount fill:#b5e5d3,stroke:#333,stroke-width:1px;
+    
+    class CorpIdP,CorpGroups,Users corpEnv;
+    class IdCenter,IdCenterDir,IdCenterGroups idCenter;
+    class PermSets,PS_Basic,PS_Advanced permSets;
+    class IAM_Basic,IAM_Advanced,APIGW_Policy,SCP_Bedrock awsAccount;

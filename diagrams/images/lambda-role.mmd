@@ -1,0 +1,62 @@
+flowchart TD
+    subgraph UserAccess ["User Access Layer"]
+        APIGateway["API Gateway
+(Private Endpoint)"]
+    end
+    
+    subgraph SecurityLayer ["Security & Control Layer"]
+        Lambda["Lambda Proxy Function"]
+        CloudWatch["CloudWatch Logs"]
+        Validation["Input/Output
+Validation"]
+        ErrorHandling["Error Handling"]
+        ModelFormatting["Model-Specific
+Formatting"]
+    end
+    
+    subgraph IAMLayer ["IAM Security Layer"]
+        STS["AWS STS"]
+        AssumeRole["AssumeRole Operation
+(Bedrock-Access-Role)"]
+    end
+    
+    subgraph ServiceLayer ["AI Service Layer"]
+        Bedrock["AWS Bedrock
+(Foundation Models)"]
+    end
+    
+    APIGateway -->|"Request
+(IAM Auth)"| Lambda
+    Lambda -->|"1. Log Request"| CloudWatch
+    Lambda -->|"2. Validate
+Input"| Validation
+    Validation -->|"Valid"| Lambda
+    
+    Lambda -->|"3. Assume
+Role"| STS
+    STS --> AssumeRole
+    AssumeRole -->|"Temp Credentials"| Lambda
+    
+    Lambda -->|"4. Format for
+Target Model"| ModelFormatting
+    ModelFormatting --> Lambda
+    
+    Lambda -->|"5. Invoke
+(with assumed role)"| Bedrock
+    Bedrock -->|"Response"| Lambda
+    
+    Lambda -->|"6. Handle Errors
+(if any)"| ErrorHandling
+    ErrorHandling --> Lambda
+    
+    Lambda -->|"7. Log Response"| CloudWatch
+    Lambda -->|"8. Return
+Formatted Response"| APIGateway
+    
+    classDef securityColor fill:#f96,stroke:#333,stroke-width:2px;
+    classDef businessColor fill:#9cf,stroke:#333,stroke-width:2px;
+    classDef serviceColor fill:#c9f,stroke:#333,stroke-width:2px;
+    
+    class Lambda,STS,AssumeRole,CloudWatch securityColor;
+    class Validation,ModelFormatting,ErrorHandling businessColor;
+    class Bedrock serviceColor;

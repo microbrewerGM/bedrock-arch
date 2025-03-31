@@ -1,0 +1,42 @@
+sequenceDiagram
+    participant Developer
+    participant VSCode as VS Code Editor
+    participant AWSToolkit as AWS Toolkit Extension
+    participant LLMExt as LLM Extension
+    participant Browser
+    participant IdCenter as AWS Identity Center
+    participant CredProvider as AWS Credential Provider
+    participant APIGW as AWS API Gateway
+    participant Bedrock as AWS Bedrock
+
+    Developer->>VSCode: 1. Launch VS Code
+    Developer->>AWSToolkit: 2. Initiate SSO Login
+    AWSToolkit->>Browser: 3. Open browser for authentication
+    Browser->>IdCenter: 4. Navigate to Identity Center login
+    Developer->>Browser: 5. Enter corporate credentials
+    IdCenter->>Browser: 6. Authentication successful
+    Browser->>AWSToolkit: 7. Return authentication code
+    AWSToolkit->>CredProvider: 8. Exchange for temporary credentials
+    CredProvider->>AWSToolkit: 9. Return AWS credentials
+    AWSToolkit->>VSCode: 10. Store credentials securely
+    
+    Note over Developer,VSCode: Development Workflow Begins
+    
+    Developer->>LLMExt: 11. Interact with LLM extension
+    LLMExt->>CredProvider: 12. Request AWS credentials
+    CredProvider->>LLMExt: 13. Provide temporary credentials
+    
+    LLMExt->>LLMExt: 14. Prepare API request
+    LLMExt->>LLMExt: 15. Sign request with AWS SigV4
+    LLMExt->>APIGW: 16. Send signed API request
+    
+    APIGW->>Bedrock: 17. Forward to Lambda/Bedrock
+    Bedrock->>APIGW: 18. Return model response
+    APIGW->>LLMExt: 19. Return API response
+    
+    LLMExt->>VSCode: 20. Format and display result
+    VSCode->>Developer: 21. Show LLM output in editor
+
+    Note over Developer,APIGW: Credential Refresh (as needed)
+    AWSToolkit->>CredProvider: Auto-refresh expired credentials
+    CredProvider->>AWSToolkit: Return new credentials
