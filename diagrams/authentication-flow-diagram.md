@@ -52,3 +52,5 @@ sequenceDiagram
 
 ![Authentication Flow Diagram](images/auth-flow.png)
 *Authentication and request flow diagram showing the path from developer to Bedrock models*
+
+This diagram is defined in the Mermaid file [auth-flow.mmd](images/auth-flow.mmd) and rendered as [auth-flow.png](images/auth-flow.png).

@@ -72,6 +72,8 @@ flowchart TD
 ![Lambda Intermediary Role Diagram](images/lambda-role.png)
 *Lambda Intermediary Role Diagram illustrating the Lambda function's critical role as a security boundary and business logic processor*
 
+This diagram is defined in the Mermaid file [lambda-role.mmd](images/lambda-role.mmd) and rendered as [lambda-role.png](images/lambda-role.png).
+
 ## Benefits of Lambda Intermediary
 
 1. **Security Isolation**

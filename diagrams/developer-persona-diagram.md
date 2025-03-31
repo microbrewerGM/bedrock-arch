@@ -15,7 +15,7 @@ mindmap
   root((Developer<br>Persona))
     Profile
       ::icon(fa fa-id-card)
-      (Alex Chen)
+      (Development Engineer)
       (Senior Software Engineer)
       (Product Development Team)
     Background
@@ -52,6 +52,8 @@ mindmap
 ![Developer Persona Diagram](images/dev-persona.png)
 *Developer Persona Profile showing key characteristics, goals and needs of software engineers using LLMs*
 
+This diagram is defined in the Mermaid file [dev-persona.mmd](images/dev-persona.mmd) and rendered as [dev-persona.png](images/dev-persona.png).
+
 ## Security Team Persona Diagram
 
 ```mermaid
@@ -59,7 +61,7 @@ mindmap
   root((Security<br>Persona))
     Profile
       ::icon(fa fa-id-card)
-      (Jordan Rivera)
+      (Security Officer)
       (Senior Information Security Officer)
     Background
       ::icon(fa fa-graduation-cap)
@@ -97,7 +99,7 @@ mindmap
   root((DevOps<br>Persona))
     Profile
       ::icon(fa fa-id-card)
-      (Taylor Kim)
+      (Infrastructure Engineer)
       (Platform Engineer)
       (Cloud Infrastructure Team)
     Background

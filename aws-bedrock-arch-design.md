@@ -803,7 +803,7 @@ Additional IAM Permissions:
 ![Developer Persona Profiles](diagrams/developer-persona-diagram.md)
 *Developer Persona Profiles showing visual representations of the developer, security, and DevOps personas*
 
-- **Name**: Alex Chen
+- **Name**: Development Engineer
 - **Role**: Senior Software Engineer, Product Development Team
 - **Technical Background**: 8+ years in software development, proficient in Python, TypeScript, Java
 - **Primary Goals**:
@@ -817,7 +817,7 @@ Additional IAM Permissions:
 
 ### A.2 Security Team Persona
 
-- **Name**: Jordan Rivera
+- **Name**: Security Officer
 - **Role**: Senior Information Security Officer
 - **Technical Background**: 12+ years in security, CISSP certified, expertise in cloud security and compliance
 - **Primary Goals**:
@@ -831,7 +831,7 @@ Additional IAM Permissions:
 
 ### A.3 DevOps Team Persona
 
-- **Name**: Taylor Kim
+- **Name**: Infrastructure Engineer
 - **Role**: Platform Engineer, Cloud Infrastructure Team
 - **Technical Background**: 6+ years in DevOps, AWS certified, IaC expertise
 - **Primary Goals**:

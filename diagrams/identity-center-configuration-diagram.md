@@ -76,6 +76,8 @@ flowchart TD
 ![Identity Center Configuration Diagram](images/identity-center.png)
 *Identity Center Configuration Diagram illustrating Identity Center integration with corporate identity provider and role mappings*
 
+This diagram is defined in the Mermaid file [identity-center.mmd](images/identity-center.mmd) and rendered as [identity-center.png](images/identity-center.png).
+
 ## Identity Center Configuration Details
 
 ### 1. Directory Integration

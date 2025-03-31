@@ -66,6 +66,8 @@ sequenceDiagram
 ![VS Code Extension Integration Diagram](images/vscode-ext.png)
 *VS Code Extension Integration Diagram showing VS Code extension integration with authentication flow and request handling*
 
+This diagram is defined in the Mermaid file [vscode-ext.mmd](images/vscode-ext.mmd) and rendered as [vscode-ext.png](images/vscode-ext.png).
+
 ## VS Code Extension Components
 
 ### AWS Toolkit for VS Code

@@ -109,6 +109,8 @@ flowchart TD
 ![Architecture Layers Diagram](images/arch-layers.png)
 *Architecture Layers Diagram showing the architectural layers and components from developers to Bedrock*
 
+This diagram is defined in the Mermaid file [arch-layers.mmd](images/arch-layers.mmd) and rendered as [arch-layers.png](images/arch-layers.png).
+
 ## Layer Descriptions
 
 ### Client Layer
