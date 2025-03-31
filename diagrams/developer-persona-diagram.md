@@ -92,6 +92,13 @@ mindmap
       (Shadow IT)
 ```
 
+## Rendered Security Persona Diagram
+
+![Security Persona Diagram](images/security-persona.png)
+*Security Persona Profile showing key characteristics, goals and needs of security professionals managing AI systems*
+
+This diagram is defined in the Mermaid file [security-persona.mmd](images/security-persona.mmd) and rendered as [security-persona.png](images/security-persona.png).
+
 ## DevOps Team Persona Diagram
 
 ```mermaid
@@ -129,6 +136,13 @@ mindmap
       (CloudWatch/X-Ray)
       (CodePipeline/GitHub Actions)
 ```
+
+## Rendered DevOps Persona Diagram
+
+![DevOps Persona Diagram](images/devops-persona.png)
+*DevOps Persona Profile showing key characteristics, goals and needs of infrastructure engineers supporting AI systems*
+
+This diagram is defined in the Mermaid file [devops-persona.mmd](images/devops-persona.mmd) and rendered as [devops-persona.png](images/devops-persona.png).
 
 ## Key Insights for Solution Design
 
